@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+      <div class="main-body">
+        <div class="main-girl">
+         <h1 style="margin-bottom: 10%;"></h1>
+          <div class="main-head">
+             <div>
+                  <form action="." method="POST">{% csrf_token %}
+                      <div class="form-group" style="display: flex;" id="head-boy">
+                        <input type="text" name="city" class="form-control" placeholder="Enter city: "
+                             data-id="input-element"
+                             data-model-name="input-element"
+                             spellcheck="false" autocomplete="off"
+                             aria-haspopup="listbox" aria-autocomplete="list">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                      </div>
+                  </form>
+             </div>
+          </div>
+          <main>
+              <section>
+                  {% if data.description and data.temperature and data.pressure and data.humidity is not None %}
+                    {% if data.weather_icon is not None %}
+                      <img width="200px" src = 'http://openweathermap.org/img/w/{{data.weather_icon}}.png' alt="weather image">
+                    {% else %}
+                      <img style="display: none;" src = 'http://openweathermap.org/img/w/{{data.weather_icon}}.png' alt="weather image">
+                    {% endif %}
+                      <div class="main-baby">
+                         <h3>Description: {{data.description | capfirst}}</h3>
+                         <h3>Temperature: {{data.temperature}}k</h3>
+                         <h3>Pressure: {{data.pressure}}Pa</h3>
+                         <h3>Humidity: {{data.humidity}}Kg<sup>-1</sup></h3>
+                      </div>
+                  {% else %}
+                     <h5 class="object">Please enter a valid city name</h5>
+                  {% endif %}
+              </section>
+          </main>
+         </div>
+      </div>
+{% endblock %}
